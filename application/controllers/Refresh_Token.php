@@ -18,10 +18,10 @@ require APPPATH . '/libraries/REST_Controller.php';
  *
  */
 
-class Authtimeout extends REST_Controller
+class Refresh_Token extends REST_Controller
 {
     /**
-     * URL: http://localhost/CodeIgniter-JWT-Sample/authtimeout/token
+     * URL: http://localhost/CodeIgniter-JWT-Sample/refresh_token/token
      * Method: GET
      */
     public function token_get()
@@ -36,12 +36,12 @@ class Authtimeout extends REST_Controller
         */
         $tokenData['timestamp'] = now();
 
-        $output['token'] = AUTHORIZATION::generateToken($tokenData);
+        $output['access_token'] = AUTHORIZATION::generateToken($tokenData);
         $this->set_response($output, REST_Controller::HTTP_OK);
     }
 
     /**
-     * URL: http://localhost/CodeIgniter-JWT-Sample/authtimeout/token
+     * URL: http://localhost/CodeIgniter-JWT-Sample/refresh_token/token
      * Method: POST
      * Header Key: Authorization
      * Value: Auth token generated in GET call
@@ -60,6 +60,8 @@ class Authtimeout extends REST_Controller
             }
         }
 
-        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+        $output['code'] = REST_Controller::HTTP_UNAUTHORIZED;
+        $output['message'] = "Unauthorized. Access token is missing or invalid.";
+        $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
     }
 }

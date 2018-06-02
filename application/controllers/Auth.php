@@ -27,7 +27,7 @@ class Auth extends REST_Controller
     {
         $tokenData = array();
         $tokenData['id'] = 1; //TODO: Replace with data for token
-        $output['token'] = AUTHORIZATION::generateToken($tokenData);
+        $output['access_token'] = AUTHORIZATION::generateToken($tokenData);
         $this->set_response($output, REST_Controller::HTTP_OK);
     }
 
@@ -49,6 +49,8 @@ class Auth extends REST_Controller
             }
         }
 
-        $this->set_response("Unauthorised", REST_Controller::HTTP_UNAUTHORIZED);
+        $output['code'] = REST_Controller::HTTP_UNAUTHORIZED;
+        $output['message'] = "Unauthorized. Access token is missing or invalid.";
+        $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
     }
 }
