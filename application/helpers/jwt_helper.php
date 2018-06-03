@@ -78,7 +78,7 @@ class JWT
 	 * @uses jsonEncode
 	 * @uses urlsafeB64Encode
 	 */
-	public static function encode($payload, $key, $algo = 'HS256')
+	public static function encode($payload, $key, $algo = 'HS512')
 	{
 		$header = array('typ' => 'JWT', 'alg' => $algo);
 
@@ -104,7 +104,7 @@ class JWT
 	 * @return string          An encrypted message
 	 * @throws DomainException Unsupported algorithm was specified
 	 */
-	public static function sign($msg, $key, $method = 'HS256')
+	public static function sign($msg, $key, $method = 'HS512')
 	{
 		$methods = array(
 			'HS256' => 'sha256',

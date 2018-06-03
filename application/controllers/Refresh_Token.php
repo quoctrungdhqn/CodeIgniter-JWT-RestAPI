@@ -20,20 +20,14 @@ require APPPATH . '/libraries/REST_Controller.php';
 
 class Refresh_Token extends REST_Controller
 {
+
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/refresh_token/token
      * Method: GET
      */
-    public function token_get()
+    public function token_post()
     {
         $tokenData = array();
-        $tokenData['id'] = 1; //TODO: Replace with data for token
-
-        /* Date helper
-        * https://www.codeigniter.com/user_guide/helpers/date_helper.html
-        * Added helper "date" in application\config\autoload.php line 92
-        * Notice - 'timestamp' is part of $tokenData
-        */
         $tokenData['timestamp'] = now();
 
         $output['access_token'] = AUTHORIZATION::generateToken($tokenData);
@@ -46,7 +40,7 @@ class Refresh_Token extends REST_Controller
      * Header Key: Authorization
      * Value: Auth token generated in GET call
      */
-    public function token_post()
+    /*public function token_get()
     {
         $headers = $this->input->request_headers();
         if (array_key_exists('Authorization', $headers) && !empty($headers['Authorization'])) {
@@ -63,5 +57,5 @@ class Refresh_Token extends REST_Controller
         $output['code'] = REST_Controller::HTTP_UNAUTHORIZED;
         $output['message'] = "Unauthorized. Access token is missing or invalid.";
         $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
-    }
+    }*/
 }
